@@ -5,8 +5,11 @@ layout: default
 <amp-state id="meat">
     <script type="application/json">
         [
-            "https://www.incimages.com/uploaded_files/image/970x450/getty_80116649_344560.jpg",
-            "https://cdn.shopify.com/s/files/1/1813/8673/products/Strip_Steak_small_345x345@2x.jpg?v=1500578212"
+            "/images/chicken.png",
+            "/images/pork.png",
+            "/images/ribs.png",
+            "/images/filet.png",
+            "/images/wild.png"
         ]
     </script>
 </amp-state>
@@ -20,33 +23,70 @@ layout: default
         0
     </script>
 </amp-state>
+<amp-state id="increase">
+    <script type="application/json">
+        [1, 2, 4, 10, 30]
+    </script>
+</amp-state>
 <div class="hide" [class]="meatOverlay==true ? 'meat-overlay': 'hide'">
-    <button class="button close-button" on="tap:AMP.setState({meatOverlay:false})">Close</button>
-    <button class="list-tile selected" [class]="meatState==0?'list-tile selected':'list-tile'" on="tap:AMP.setState({meatState:0})">
-        <span class="primary">Schweinefleisch</span>
-        <br>
-        <span class="secondary"></span>
-    </button>
-    <button class="list-tile disabled" [class]="counter>5?(meatState==1?'list-tile selected':'list-tile'):'list-tile disabled'"
-        on="tap:AMP.setState({meatState:counter>5?1:0})">
-        <span class="primary">Schweinefleisch</span>
-        <br>
-        <span class="secondary">ab 5000 Clicks -> verdoppelt die Aufstockung pro Klick</span>
-    </button>
+    <h2 class="heading">Meat Upgrades</h2>
+    <div class="scroll-container">
+        <div>
+            <button class="button close-button" on="tap:AMP.setState({meatOverlay:false})">Close</button>
+            <button class="list-tile selected" [class]="meatState==0?'list-tile selected':'list-tile'" on="tap:AMP.setState({meatState:0})">
+                <span class="primary">Chicken Meat</span>
+                <br>
+                <span class="secondary">Default Meat -> Increase 1 per Hit</span>
+            </button>
+            <button class="list-tile disabled" [class]="counter>100?(meatState==1?'list-tile selected':'list-tile'):'list-tile disabled'"
+                on="tap:AMP.setState({meatState:counter>100?1:0})">
+                <span class="primary">Pork</span>
+                <br>
+                <span class="secondary">available with +100 Clicks -> doubles the Increase per Hit (2x)</span>
+            </button>
+            <button class="list-tile disabled" [class]="counter>3000?(meatState==2?'list-tile selected':'list-tile'):'list-tile disabled'"
+                on="tap:AMP.setState({meatState:counter>3000?2:0})">
+                <span class="primary">Ribs</span>
+                <br>
+                <span class="secondary">available with +3000 Clicks -> quadruplicates the Increase per Hit (4x)</span>
+            </button>
+            <button class="list-tile disabled" [class]="counter>10000?(meatState==3?'list-tile selected':'list-tile'):'list-tile disabled'"
+                on="tap:AMP.setState({meatState:counter>10000?3:0})">
+                <span class="primary">Filet</span>
+                <br>
+                <span class="secondary">available with +10000 Clicks -> tenfolds the Increase per Hit (10x)</span>
+            </button>
+            <button class="list-tile disabled" [class]="counter>90000?(meatState==4?'list-tile selected':'list-tile'):'list-tile disabled'"
+                on="tap:AMP.setState({meatState:counter>90000?4:0})">
+                <span class="primary">VENISON</span>
+                <br>
+                <span class="secondary">available with +90000 Clicks -> thirty-folds the Increase per Hit (30x)</span>
+            </button>
+        </div>
+    </div>
+    <p class="scroll-label">Scroll down!</p>
 </div>
 <div class="overlay" [class]="hide==true ? 'hide' : 'overlay'">
+    <amp-img layout="fixed" height="64" width="64" src="/images/logo.png"></amp-img>
     <h1 class="heading">HIT THE SCHNITZEL</h1>
+    <p>{{ site.description }}</p>
+    <p>a Game entirely made with Accelerated Mobile Pages</p>
 
     <button class="button" on="tap:AMP.setState({hide:true})">PLAY</button>
 </div>
 <div class="content">
     <amp-img class="bgd" layout="fill" src="{{ site.game_bgd }}"></amp-img>
 
-    <a on="tap:punch.play, AMP.setState({counter: counter+1})"><div class="schnitzel">
-        <amp-img [src]="meat[meatState]" src="https://www.incimages.com/uploaded_files/image/970x450/getty_80116649_344560.jpg" layout="fixed"
-            height="350" width="350"></amp-img></div>
+    <a on="tap:punch.play, AMP.setState({counter: counter+increase[meatState]})">
+        <div class="schnitzel">
+            <amp-img [src]="meat[meatState]" src="/images/chicken.png" layout="fixed" height="350" width="350"></amp-img>
+        </div>
     </a>
-    <p [text]="counter" class="heading">0</p>
-    <amp-audio layout="fixed" src="https://himsel.me/web/5/punch.mp3" id="punch"></amp-audio>
-    <button class="button" on="tap:AMP.setState({meatOverlay:true})">Fleisch upgraden</button>
+    <div class="score">
+        <h2 class="heading">Score:
+            <span [text]="counter">0</span>
+        </h2>
+        <amp-audio layout="fixed" src="/audio/punch.mp3" id="punch"></amp-audio>
+        <button class="button" on="tap:AMP.setState({meatOverlay:true})">Meat Upgrades</button>
+    </div>
 </div>

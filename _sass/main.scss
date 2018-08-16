@@ -23,11 +23,14 @@ html {
     padding-top: 6rem;
 }
 
+.content .heading{
+    padding-top:3rem;
+}
 .content amp-img img {
     object-fit: cover;
 }
 
-.content *:not(.bgd),
+.content *:not(.bgd):not(.score),
 .overlay *:not(.bgd),
 .meat-overlay *:not(.close-button) {
     position: relative;
@@ -43,20 +46,40 @@ html {
     background: red;
     display: block;
     text-align: center;
-    padding-top: 6rem;
+    padding-top: 3rem;
+}
+.overlay p{
+    font-size: 1.2rem;
+    color: white;
+    font-family: 'Carter One', cursive;
 }
 
 .meat-overlay {
     z-index: 999;
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    background: blue;
+    background: red;
     display: block;
     text-align: left;
-    padding-top: 6rem;
+    position: fixed;
+}
+@media(max-width:1199px){
+    .meat-overlay{
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+    }
+}
+@media(min-width:1200px){
+    .meat-overlay {
+        top:4rem;
+        bottom:4rem;
+        left:20%;
+        right:20%;
+        border-radius: .6rem;
+    }
+}
+.meat-overlay .heading{
+    margin: 1rem;
 }
 .close-button{
     z-index:998;
@@ -114,4 +137,29 @@ html {
 amp-audio,
 audio {
     display: none;
+}
+
+.score{
+    position: fixed;
+    bottom: 1rem;
+    left:0;
+    right:0;
+    text-align: center;
+}
+img{
+    max-width: 100%;
+}
+.scroll-container{
+    overflow: auto;
+    height: 18rem;
+    border-top: solid .6rem black;
+    border-bottom: solid .6rem black;
+}
+.scroll-label{
+    font-family: 'Carter One', cursive;
+    background:white;
+    padding: .6rem;
+    margin-top:0;
+    color: black;
+    border-bottom: solid .6rem black;
 }
