@@ -86,7 +86,7 @@ layout: default
         <h2 class="heading">Score:
             <span [text]="counter">0</span>
         </h2>
-        <amp-audio layout="fixed" src="/audio/punch.mp3" id="punch"></amp-audio>
+        <amp-audio layout="fixed" src="{{ site.url }}/audio/punch.mp3" id="punch"></amp-audio>
         <button class="button" on="tap:AMP.setState({meatOverlay:true})">Meat Upgrades</button>
     </div>
 </div>
