@@ -1,0 +1,52 @@
+---
+layout: default
+---
+
+<amp-state id="meat">
+    <script type="application/json">
+        [
+            "https://www.incimages.com/uploaded_files/image/970x450/getty_80116649_344560.jpg",
+            "https://cdn.shopify.com/s/files/1/1813/8673/products/Strip_Steak_small_345x345@2x.jpg?v=1500578212"
+        ]
+    </script>
+</amp-state>
+<amp-state id="counter">
+    <script type="application/json">
+        0
+    </script>
+</amp-state>
+<amp-state id="meatState">
+    <script type="application/json">
+        0
+    </script>
+</amp-state>
+<div class="hide" [class]="meatOverlay==true ? 'meat-overlay': 'hide'">
+    <button class="button close-button" on="tap:AMP.setState({meatOverlay:false})">Close</button>
+    <button class="list-tile selected" [class]="meatState==0?'list-tile selected':'list-tile'" on="tap:AMP.setState({meatState:0})">
+        <span class="primary">Schweinefleisch</span>
+        <br>
+        <span class="secondary"></span>
+    </button>
+    <button class="list-tile disabled" [class]="counter>5?(meatState==1?'list-tile selected':'list-tile'):'list-tile disabled'"
+        on="tap:AMP.setState({meatState:counter>5?1:0})">
+        <span class="primary">Schweinefleisch</span>
+        <br>
+        <span class="secondary">ab 5000 Clicks -> verdoppelt die Aufstockung pro Klick</span>
+    </button>
+</div>
+<div class="overlay" [class]="hide==true ? 'hide' : 'overlay'">
+    <h1 class="heading">HIT THE SCHNITZEL</h1>
+
+    <button class="button" on="tap:AMP.setState({hide:true})">PLAY</button>
+</div>
+<div class="content">
+    <amp-img class="bgd" layout="fill" src="{{ site.game_bgd }}"></amp-img>
+
+    <a on="tap:punch.play, AMP.setState({counter: counter+1})"><div class="schnitzel">
+        <amp-img [src]="meat[meatState]" src="https://www.incimages.com/uploaded_files/image/970x450/getty_80116649_344560.jpg" layout="fixed"
+            height="350" width="350"></amp-img></div>
+    </a>
+    <p [text]="counter" class="heading">0</p>
+    <amp-audio layout="fixed" src="https://himsel.me/web/5/punch.mp3" id="punch"></amp-audio>
+    <button class="button" on="tap:AMP.setState({meatOverlay:true})">Fleisch upgraden</button>
+</div>
