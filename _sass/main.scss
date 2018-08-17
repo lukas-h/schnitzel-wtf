@@ -163,3 +163,7 @@ img{
     color: black;
     border-bottom: solid .6rem black;
 }
+.schnitzel img:active{
+    -webkit-filter: saturate(3);
+    filter: saturate(3);
+}
